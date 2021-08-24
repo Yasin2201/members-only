@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+
+  <% if (user) {%>
+    <h1>
+      WELCOME BACK <%= user.username %>
+    </h1>
+    <a href="/log-out">LOG OUT</a>
+
+    <% } else { %>
+      <p>
+        Welcome to <%= title %>
+      </p>
+      <%}%>
+</body>
+
 </html>
