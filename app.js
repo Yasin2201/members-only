@@ -5,6 +5,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//import for userauthentication
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+
 //mongoose connection
 const mongoose = require('mongoose');
 const mongoDB = process.env.DB_URL;
@@ -14,12 +19,43 @@ db.on('error', console.error.bind(console, "MongoDB connection error: "));
 
 //routes
 var catalogRouter = require('./routes/catalog');
+const user = require('./models/user');
 
 var app = express();
+
+//LocalStrategy setup
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    user.findOne({ username: username }, (err, user) => {
+      if (err) { return done(err) }
+
+      if (!user) { return done(null, false, { message: "Incorrect Username" }) }
+
+      if (user.password !== password) { return done(null, false, { message: "Incorrect Password" }) }
+      return done(null, user)
+    })
+  })
+);
+
+//Serialization setup
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+passport.deserializeUser(function (id, done) {
+  user.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+//passportjs setup
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(logger('dev'));
 app.use(express.json());
