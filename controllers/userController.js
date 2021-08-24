@@ -1,10 +1,11 @@
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
+const passport = require("passport");
 const { body, check, validationResult } = require('express-validator');
 
 //Home Page
 exports.home_get = function (req, res) {
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Express', user: req.user });
 };
 
 // Load Sign up form on user sign-up
@@ -60,4 +61,21 @@ exports.sign_up_post = [
             }
         });
     }
-]
+];
+
+//Login Page
+exports.login_get = function (req, res) {
+    res.render('login', { title: 'Sign In' });
+};
+
+//Log in user POST
+exports.login_post = passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+});
+
+//Log out user
+exports.logout_get = function (req, res) {
+    req.logout();
+    res.redirect('/');
+};
