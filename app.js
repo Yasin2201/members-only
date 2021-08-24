@@ -5,10 +5,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-//import for userauthentication
+//import for user authentication
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require('bcryptjs');
+const User = require('./models/user');
 
 //mongoose connection
 const mongoose = require('mongoose');
@@ -19,20 +21,28 @@ db.on('error', console.error.bind(console, "MongoDB connection error: "));
 
 //routes
 var catalogRouter = require('./routes/catalog');
-const user = require('./models/user');
 
 var app = express();
 
 //LocalStrategy setup
 passport.use(
   new LocalStrategy((username, password, done) => {
-    user.findOne({ username: username }, (err, user) => {
+    User.findOne({ username: username }, (err, user) => {
       if (err) { return done(err) }
 
       if (!user) { return done(null, false, { message: "Incorrect Username" }) }
 
-      if (user.password !== password) { return done(null, false, { message: "Incorrect Password" }) }
-      return done(null, user)
+      if (user.password !== password) {
+        bcrypt.compare(password, user.password, (err, res) => {
+          if (res) {
+            // passwords match! log user in
+            return done(null, user)
+          } else {
+            // passwords do not match!
+            return done(null, false, { message: "Incorrect password" })
+          }
+        })
+      }
     })
   })
 );
@@ -42,7 +52,7 @@ passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 passport.deserializeUser(function (id, done) {
-  user.findById(id, function (err, user) {
+  User.findById(id, function (err, user) {
     done(err, user);
   });
 });
