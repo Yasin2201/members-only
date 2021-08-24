@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const bcrypt = require('bcryptjs')
 const { body, validationResult } = require('express-validator');
 
 //Home Page
@@ -23,32 +24,37 @@ exports.sign_up_post = [
         //Errors from req if any
         const errors = validationResult(req)
 
-        //Create new user wit validated data
-        const user = new User({
-            username: req.body.username,
-            password: req.body.password
+        //hash users inputted password with bcrypt for security
+        bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+            if (err) { return next(err) }
+
+            //Create new user with validated data and hashed password
+            const user = new User({
+                username: req.body.username,
+                password: hashedPassword
+            });
+
+            if (!errors.isEmpty()) {
+                res.render('sign-up', { title: 'Sign Up', user: user, errors: errors.array() });
+                console.log(errors.array())
+                return
+            } else {
+                // first check if username already exists
+                User.findOne({ 'username': req.body.username })
+                    .exec(function (err, found_username) {
+                        if (err) { return next(err) }
+
+                        // if username exists re-render sign-up with error
+                        if (found_username) {
+                            res.render('sign-up', { title: 'Sign Up', user: user, errors: [{ value: '', msg: 'Username already exists', param: 'username', location: 'body' }] });
+                        } else {
+                            user.save(function (err) {
+                                if (err) { return next(err) }
+                                res.redirect('/')
+                            });
+                        }
+                    });
+            }
         });
-
-        if (!errors.isEmpty()) {
-            res.render('sign-up', { title: 'Sign Up', user: user, errors: errors.array() });
-            console.log(errors.array())
-            return
-        } else {
-            // first check if username already exists
-            User.findOne({ 'username': req.body.username })
-                .exec(function (err, found_username) {
-                    if (err) { return next(err) }
-
-                    // if username exists re-render sign-up with error
-                    if (found_username) {
-                        res.render('sign-up', { title: 'Sign Up', user: user, errors: [{ value: '', msg: 'Username already exists', param: 'username', location: 'body' }] });
-                    } else {
-                        user.save(function (err) {
-                            if (err) { return next(err) }
-                            res.redirect('/')
-                        });
-                    }
-                });
-        }
     }
 ]
