@@ -4,9 +4,6 @@ const router = express.Router();
 const user_controller = require('../controllers/userController');
 const message_controller = require('../controllers/messageController');
 
-//GET Home Page
-router.get('/', user_controller.home_get)
-
 //GET user Sign-Up form
 router.get('/sign-up', user_controller.sign_up_get)
 
@@ -28,5 +25,8 @@ router.get('/new-message', message_controller.message_form_get)
 
 // POST user new message 
 router.post('/new-message', message_controller.message_form_post)
+
+//GET Home Page & All Messages
+router.get('/', message_controller.messages_list_get)
 
 module.exports = router;
