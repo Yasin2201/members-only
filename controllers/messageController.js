@@ -40,3 +40,17 @@ exports.messages_list_get = function (req, res, next) {
             res.render('index', { title: "Members Only", user: req.user, all_messages: all_messages })
         })
 }
+
+exports.delete_message_get = function (req, res) {
+    console.log(req.params)
+
+    Message.findById(req.params.id)
+        .exec(function (err, found_message) {
+            if (err) { return next(err) }
+            else {
+                console.log(found_message)
+                res.render('delete-message', { title: 'Are you sure you want to delete this message? :', user: req.user, message: found_message })
+            }
+        })
+
+}
