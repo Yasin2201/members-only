@@ -3,11 +3,6 @@ const bcrypt = require('bcryptjs')
 const passport = require("passport");
 const { body, check, validationResult } = require('express-validator');
 
-//Home Page
-exports.home_get = function (req, res) {
-    res.render('index', { title: 'Express', user: req.user });
-};
-
 // Load Sign up form on user sign-up
 exports.sign_up_get = function (req, res) {
     res.render('sign-up', { title: 'Sign Up' })
