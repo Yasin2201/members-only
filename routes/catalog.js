@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const user_controller = require('../controllers/userController');
+const message_controller = require('../controllers/messageController');
 
 //GET Home Page
 router.get('/', user_controller.home_get)
@@ -20,5 +21,9 @@ router.post('/login', user_controller.login_post)
 
 //GET user logout
 router.get('/log-out', user_controller.logout_get)
+
+// Message Routes
+// GET create new message page
+router.get('/new-message', message_controller.message_form_get)
 
 module.exports = router;
