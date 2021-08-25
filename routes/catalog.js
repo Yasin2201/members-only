@@ -41,4 +41,10 @@ router.get('/admin-access', user_controller.admin_access_get)
 //POST admin-access page
 router.post('/admin-access', user_controller.admin_access_post)
 
+//GET delete-message page
+router.get('/delete-message/:id', message_controller.delete_message_get)
+
+//POST delete-message page
+router.post('/delete-message/:id', message_controller.delete_message_post)
+
 module.exports = router;
