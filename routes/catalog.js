@@ -26,4 +26,7 @@ router.get('/log-out', user_controller.logout_get)
 // GET create new message page
 router.get('/new-message', message_controller.message_form_get)
 
+// POST user new message 
+router.post('/new-message', message_controller.message_form_post)
+
 module.exports = router;
