@@ -40,6 +40,7 @@
 
         <form action="" method="POST">
             <input type="hidden" name="messageid" required="true" value=<%=message._id%>>
+            <input type="text" name="adminPassword" placeholder="Password">
             <button>Delete</button>
         </form>
 
@@ -49,6 +50,16 @@
                 <a href="/login">LOG IN</a>
             </p>
             <%}%>
+
+                <% if (typeof errors !='undefined' ) { %>
+                    <ul>
+                        <% errors.forEach(err=> { %>
+                            <li>
+                                <%= err.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
 
 </body>
 
