@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <% if (user) {%>
+        <h1>
+            <%= title %>
+        </h1>
+        <a href="/log-out">LOG OUT</a>
+        <a href="/new-message">Create New Message</a>
+        <a href="/member-join">Become a Member</a>
+        <a href="/admin-access">Become a Admin</a>
+
+        <p>Enter the Admin password to become a Admin:</p>
+
+        <form action="" method="POST">
+            <input type="text" name="adminPassword" placeholder="Password">
+            <button>Join</button>
+        </form>
+
+        <% } else { %>
+            <p>
+                PLEASE
+                <a href="/login">LOG IN</a>
+            </p>
+            <%}%>
+
+                <% if (typeof errors !='undefined' ) { %>
+                    <ul>
+                        <% errors.forEach(err=> { %>
+                            <li>
+                                <%= err.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
+</body>
+
+</html>
