@@ -1,5 +1,6 @@
+require('dotenv').config()
 const Message = require('../models/message');
-const { body, validationResult } = require('express-validator');
+const { body, check, validationResult } = require('express-validator');
 
 exports.message_form_get = function (req, res) {
     res.render('new-message', { title: "Create New Message", user: req.user })
@@ -55,12 +56,33 @@ exports.delete_message_get = function (req, res) {
                 res.render('delete-message', { title: 'Are you sure you want to delete this message? :', user: req.user, message: found_message })
             }
         })
-
 }
 
-exports.delete_message_post = function (req, res) {
-    Message.findByIdAndRemove(req.body.messageid, function deleteMessage(err) {
-        if (err) { return next(err) }
-        res.redirect('/')
-    })
-}
+
+exports.delete_message_post = [
+
+    //check if admin delete password is same as one in .env
+    check('adminPassword', 'Incorrect Admin Access Password')
+        .exists()
+        .escape()
+        .custom(value => value === process.env.ADMIN_DELETE_PASSWORD),
+
+    (req, res, next) => {
+
+        const errors = validationResult(req)
+
+        Message.findById(req.params.id)
+            .exec(function deleteMessage(err, found_message) {
+                if (err) { return next(err) }
+
+                if (!errors.isEmpty()) {
+                    res.render('delete-message', { title: 'Are you sure you want to delete this message? :', user: req.user, message: found_message, errors: errors.array() })
+                } else {
+                    Message.remove({ _id: req.params.id }, function (err) {
+                        if (err) { return next(err) }
+                        res.redirect('/')
+                    })
+                }
+            })
+    }
+]
