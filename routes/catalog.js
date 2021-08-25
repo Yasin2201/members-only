@@ -35,5 +35,10 @@ router.get('/member-join', user_controller.member_join_get)
 //POST member-join page
 router.post('/member-join', user_controller.member_join_post)
 
+//GET admin-access page
+router.get('/admin-access', user_controller.admin_access_get)
+
+//POST admin-access page
+router.post('/admin-access', user_controller.admin_access_post)
 
 module.exports = router;
