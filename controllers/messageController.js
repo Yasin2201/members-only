@@ -6,6 +6,8 @@ exports.message_form_get = function (req, res) {
 };
 
 exports.message_form_post = [
+
+    //validate and sanitize message form fiels
     body('messageTitle', 'Title can not be empty').trim().isLength({ min: 1 }).escape(),
     body('messageText', 'Message text can not be empty').trim().isLength({ min: 1 }).escape(),
 
@@ -22,9 +24,11 @@ exports.message_form_post = [
         })
 
         if (!errors.isEmpty()) {
+            //re-render form if any errors
             res.render('new-message', { title: "Create New Message", user: req.user, errors: errors.array() })
             return
         } else {
+            //save message to database
             message.save(function (err) {
                 if (err) { return next(err) }
                 res.redirect('/')
@@ -34,6 +38,7 @@ exports.message_form_post = [
 ]
 
 exports.messages_list_get = function (req, res, next) {
+    // find all messages and display on homepage
     Message.find()
         .exec(function (err, all_messages) {
             if (err) { return next(err) }
@@ -42,15 +47,20 @@ exports.messages_list_get = function (req, res, next) {
 }
 
 exports.delete_message_get = function (req, res) {
-    console.log(req.params)
-
+    // find message information by id and display message admin requested to delete
     Message.findById(req.params.id)
         .exec(function (err, found_message) {
             if (err) { return next(err) }
             else {
-                console.log(found_message)
                 res.render('delete-message', { title: 'Are you sure you want to delete this message? :', user: req.user, message: found_message })
             }
         })
 
+}
+
+exports.delete_message_post = function (req, res) {
+    Message.findByIdAndRemove(req.body.messageid, function deleteMessage(err) {
+        if (err) { return next(err) }
+        res.redirect('/')
+    })
 }
