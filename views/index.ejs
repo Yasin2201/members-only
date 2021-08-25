@@ -19,6 +19,7 @@
     </h1>
     <a href="/log-out">LOG OUT</a>
     <a href="/new-message">Create New Message</a>
+    <a href="/member-join">Become a member</a>
 
     <% } else { %>
       <p>
@@ -30,7 +31,7 @@
 
           <div>
             <p>
-              <%= user ? `${message.username}` : 'Anon' %>
+              <%= user && user.isMember ? `${message.username}` : 'Anon' %>
             </p>
             <p>
               <%= message.title%>
@@ -39,7 +40,7 @@
               <%= message.text%>
             </p>
             <p>
-              <%= user ? `${message.date}` : 'date: **/**/****' %>
+              <%= user && user.isMember ? `${message.date}` : 'date: **/**/****' %>
             </p>
             <hr>
           </div>
