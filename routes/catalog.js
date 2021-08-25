@@ -29,4 +29,11 @@ router.post('/new-message', message_controller.message_form_post)
 //GET Home Page & All Messages
 router.get('/', message_controller.messages_list_get)
 
+//GET member-join page
+router.get('/member-join', user_controller.member_join_get)
+
+//POST member-join page
+router.post('/member-join', user_controller.member_join_post)
+
+
 module.exports = router;
