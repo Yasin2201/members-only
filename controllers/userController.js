@@ -31,7 +31,9 @@ exports.sign_up_post = [
             //Create new user with validated data and hashed password
             const user = new User({
                 username: req.body.username,
-                password: hashedPassword
+                password: hashedPassword,
+                isMember: false,
+                isAdmin: false
             });
 
             if (!errors.isEmpty()) {
