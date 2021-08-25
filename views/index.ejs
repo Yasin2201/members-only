@@ -45,7 +45,7 @@
               <%= user && user.isMember ? `${message.date}` : 'date: **/**/****' %>
             </p>
             <% if (user && user.isAdmin) {%>
-              <a href="/delete-message">Delete</a>
+              <a href=<%=`/delete-message/${message._id}`%>>Delete</a>
               <% }%>
           </div>
 
