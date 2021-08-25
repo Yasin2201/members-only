@@ -1,6 +1,7 @@
 require('dotenv').config()
 const Message = require('../models/message');
 const { body, check, validationResult } = require('express-validator');
+const moment = require('moment')
 
 exports.message_form_get = function (req, res) {
     res.render('new-message', { title: "Create New Message", user: req.user })
@@ -21,7 +22,7 @@ exports.message_form_post = [
             username: req.user.username,
             title: req.body.messageTitle,
             text: req.body.messageText,
-            date: Date.now()
+            date: moment().format('DD/MM/YYYY, HH:mm')
         })
 
         if (!errors.isEmpty()) {
