@@ -25,6 +25,26 @@
         Welcome to <%= title %>
       </p>
       <%}%>
+
+        <% all_messages.map((message)=> {%>
+
+          <div>
+            <p>
+              <%= user ? `${message.username}` : 'Anon' %>
+            </p>
+            <p>
+              <%= message.title%>
+            </p>
+            <p>
+              <%= message.text%>
+            </p>
+            <p>
+              <%= user ? `${message.date}` : 'date: **/**/****' %>
+            </p>
+            <hr>
+          </div>
+
+          <%})%>
 </body>
 
 </html>
