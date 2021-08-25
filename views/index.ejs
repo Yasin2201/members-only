@@ -31,6 +31,7 @@
         <% all_messages.map((message)=> {%>
 
           <div>
+            <hr>
             <p>
               <%= user && user.isMember ? `${message.username}` : 'Anon' %>
             </p>
@@ -43,7 +44,9 @@
             <p>
               <%= user && user.isMember ? `${message.date}` : 'date: **/**/****' %>
             </p>
-            <hr>
+            <% if (user && user.isAdmin) {%>
+              <a href="/delete-message">Delete</a>
+              <% }%>
           </div>
 
           <%})%>
