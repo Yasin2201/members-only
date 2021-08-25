@@ -18,7 +18,8 @@
         <a href="/new-message">Create New Message</a>
 
         <form action="" method="POST">
-            <textarea name="newMessage" placeholder="What's on your mind?" cols="25" rows="3"></textarea>
+            <input type="text" name="messageTitle" placeholder="Title">
+            <input type="text" name="messageText" placeholder="What's on your mind?">
             <button>Post</button>
         </form>
 
@@ -28,6 +29,16 @@
                 <a href="/login">LOG IN</a>
             </p>
             <%}%>
+
+                <% if (typeof errors !='undefined' ) { %>
+                    <ul>
+                        <% errors.forEach(err=> { %>
+                            <li>
+                                <%= err.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
 </body>
 
 </html>
