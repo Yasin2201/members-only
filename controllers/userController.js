@@ -108,3 +108,34 @@ exports.member_join_post = [
         }
     }
 ]
+
+//GET admin-access page
+exports.admin_access_get = function (req, res) {
+    res.render('admin-access', { title: 'Admin Access:', user: req.user });
+}
+
+//validate password and update user isAdmin === true
+exports.admin_access_post = [
+
+    //Check admin password is same as one in .env file
+    check('adminPassword', 'Incorrect Admin Access Password')
+        .exists()
+        .escape()
+        .custom(value => value === process.env.ADMIN_PASSWORD),
+
+    (req, res, next) => {
+        const errors = validationResult(req)
+
+        //if password is incorrect re-render admin-access page with displayed error messages
+        if (!errors.isEmpty()) {
+            res.render('admin-access', { title: 'Admin Access', user: req.user, errors: errors.array() });
+            return
+        } else {
+            // else update users status so they have admin privileges and add member priveleges if not already a member
+            User.findByIdAndUpdate(req.user._id, { isMember: true, isAdmin: true }, (err, result) => {
+                if (err) { return next(err) }
+                else { res.redirect('/') }
+            })
+        }
+    }
+]
