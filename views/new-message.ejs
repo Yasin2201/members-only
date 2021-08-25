@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <% if (user) {%>
+        <h1>
+            <%= title %>
+        </h1>
+
+        <a href="/log-out">LOG OUT</a>
+        <a href="/new-message">Create New Message</a>
+
+        <form action="" method="POST">
+            <textarea name="newMessage" placeholder="What's on your mind?" cols="25" rows="3"></textarea>
+            <button>Post</button>
+        </form>
+
+        <% } else { %>
+            <p>
+                PLEASE
+                <a href="/login">LOG IN</a>
+            </p>
+            <%}%>
+</body>
+
+</html>

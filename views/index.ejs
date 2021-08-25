@@ -18,6 +18,12 @@
       WELCOME BACK <%= user.username %>
     </h1>
     <a href="/log-out">LOG OUT</a>
+    <a href="/new-message">Create New Message</a>
+
+    <form action="" method="POST">
+      <textarea name="newMessage" placeholder="What's on your mind?" cols="25" rows="3"></textarea>
+      <button>Post</button>
+    </form>
 
     <% } else { %>
       <p>
