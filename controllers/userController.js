@@ -1,3 +1,4 @@
+require('dotenv').config()
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const passport = require("passport");
@@ -76,3 +77,34 @@ exports.logout_get = function (req, res) {
     req.logout();
     res.redirect('/');
 };
+
+//GET member-join page
+exports.member_join_get = function (req, res) {
+    res.render('member-join', { title: 'Become a Member', user: req.user });
+}
+
+//validate password and update user isMember === true
+exports.member_join_post = [
+
+    //Check member password is same as one in .env file
+    check('memberPassword', 'Incorrect Secret Password')
+        .exists()
+        .escape()
+        .custom(value => value === process.env.MEMBER_PASSWORD),
+
+    (req, res, next) => {
+        const errors = validationResult(req)
+
+        //if password is incorrect re-render member-join page with displayed error messages
+        if (!errors.isEmpty()) {
+            res.render('member-join', { title: 'Become a Member', user: req.user, errors: errors.array() });
+            return
+        } else {
+            // else update users status so they have member privileges
+            User.findByIdAndUpdate(req.user._id, { isMember: true }, (err, result) => {
+                if (err) { return next(err) }
+                else { res.redirect('/') }
+            })
+        }
+    }
+]
