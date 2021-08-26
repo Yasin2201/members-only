@@ -52,7 +52,7 @@ exports.sign_up_post = [
                         } else {
                             user.save(function (err) {
                                 if (err) { return next(err) }
-                                res.redirect('/')
+                                res.redirect('/login')
                             });
                         }
                     });
