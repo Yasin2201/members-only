@@ -11,19 +11,27 @@
 </head>
 
 <body>
-    <h1>
-        <%= title %>
-    </h1>
+    <% if (!user) {%>
+        <h1>
+            <%= title %>
+        </h1>
 
-    <form action="/login" method="POST">
-        <label for="username"></label>
-        <input type="text" name="username" placeholder="username">
+        <form action="/login" method="POST">
+            <label for="username"></label>
+            <input type="text" name="username" placeholder="username">
 
-        <label for="password"></label>
-        <input type="text" name="password" placeholder="password">
+            <label for="password"></label>
+            <input type="text" name="password" placeholder="password">
 
-        <button>Submit</button>
-    </form>
+            <button>Submit</button>
+        </form>
+
+        <% } else { %>
+            <a href="/">Back</a>
+            <p>
+                you're already logged in.
+            </p>
+            <%}%>
 </body>
 
 </html>

@@ -6,7 +6,7 @@ const { body, check, validationResult } = require('express-validator');
 
 // Load Sign up form on user sign-up
 exports.sign_up_get = function (req, res) {
-    res.render('sign-up', { title: 'Sign Up' })
+    res.render('sign-up', { title: 'Sign Up', user: req.user })
 }
 
 // Handle User Sign-up
@@ -63,7 +63,7 @@ exports.sign_up_post = [
 
 //Login Page
 exports.login_get = function (req, res) {
-    res.render('login', { title: 'Sign In' });
+    res.render('login', { title: 'Sign In', user: req.user });
 };
 
 //Log in user POST

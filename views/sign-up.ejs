@@ -11,31 +11,38 @@
 </head>
 
 <body>
-    <h1>
-        <%= title %>
-    </h1>
+    <% if (!user) {%>
+        <h1>
+            <%= title %>
+        </h1>
 
-    <form action="" method="POST">
-        <label for="username"></label>
-        <input type="text" name="username" placeholder="username">
+        <form action="" method="POST">
+            <label for="username"></label>
+            <input type="text" name="username" placeholder="username">
 
-        <label for="password"></label>
-        <input type="text" name="password" placeholder="password">
+            <label for="password"></label>
+            <input type="text" name="password" placeholder="password">
 
-        <label for="passwordConfirmation"></label>
-        <input type="text" name="passwordConfirmation" placeholder="password confirmation">
-        <button>Submit</button>
-    </form>
+            <label for="passwordConfirmation"></label>
+            <input type="text" name="passwordConfirmation" placeholder="password confirmation">
+            <button>Submit</button>
+        </form>
+        <% } else { %>
+            <a href="/">Back</a>
+            <p>
+                user already signed up.
+            </p>
+            <%}%>
 
-    <% if (typeof errors !='undefined' ) { %>
-        <ul>
-            <% errors.forEach(err=> { %>
-                <li>
-                    <%= err.msg %>
-                </li>
-                <% }) %>
-        </ul>
-        <% } %>
+                <% if (typeof errors !='undefined' ) { %>
+                    <ul>
+                        <% errors.forEach(err=> { %>
+                            <li>
+                                <%= err.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
 </body>
 
 </html>
