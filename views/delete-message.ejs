@@ -9,16 +9,21 @@
 </head>
 
 <body>
-    <h1>
-        Delete Message
-    </h1>
-
     <% if (user) {%>
 
-        <a href="/log-out">Log Out</a>
-        <a href="/new-message">Create New Message</a>
-        <a href="/member-join">Become a Member</a>
-        <a href="/admin-access">Become a Admin</a>
+        <nav>
+            <h1>
+                Members Only
+            </h1>
+
+            <div>
+                <a href="/">Home</a>
+                <a href="/new-message">Create New Message</a>
+                <a href="/member-join">Become a Member</a>
+                <a href="/admin-access">Become a Admin</a>
+                <a href="/log-out">Log Out</a>
+            </div>
+        </nav>
 
         <h3>
             <%= title %>

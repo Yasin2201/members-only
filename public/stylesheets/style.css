@@ -1,8 +1,28 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: rgb(255, 255, 255);
+  padding-right: 20px;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(199, 199, 199);
+}
+
+h1 {
+  color: rgb(240, 240, 240);
+  padding-left: 20px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(69, 79, 89);
+  border-bottom: solid 1px black;
 }
