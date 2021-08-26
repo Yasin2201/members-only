@@ -70,3 +70,53 @@ button:hover {
   background-color: rgb(255, 255, 255);
   color: rgb(92, 121, 175);
 }
+
+h3 {
+  text-decoration: underline;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+.all-messages-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.message-div {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  margin: 5px;
+  width: 500px;
+  border: solid 1px black;
+}
+
+.message-date-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: 12px;
+}
+
+.delete-btn {
+  font-size: 12px;
+  color: rgb(158, 45, 45);
+  font-weight: bold;
+}
+
+.delete-btn:hover {
+  color: rgb(223, 64, 64);
+}
+
+.delete-message-alert{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

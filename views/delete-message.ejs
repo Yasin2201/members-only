@@ -25,22 +25,29 @@
             </div>
         </nav>
 
-        <h3>
-            <%= title %>
-        </h3>
-        <div>
-            <p>
-                <%= message.username%>
-            </p>
-            <p>
-                <%= message.title%>
-            </p>
-            <p>
-                <%= message.text%>
-            </p>
-            <p>
-                <%= message.date%>
-            </p>
+        <div class="delete-message-alert">
+
+            <h2>
+                <%= title %>
+            </h2>
+
+            <div class="message-div">
+                <h3>
+                    <%= message.title%>
+                </h3>
+                <p>
+                    <%= message.text%>
+                </p>
+
+                <div class="message-date-div">
+                    <p>
+                        <%= user && user.isMember ? `${message.date}` : 'date: **/**/****' %>
+                    </p>
+                    <p>
+                        <%= user && user.isMember ? `${message.username}` : 'Anon' %>
+                    </p>
+                </div>
+            </div>
         </div>
 
         <form action="" method="POST">
@@ -49,22 +56,22 @@
             <button>Delete</button>
         </form>
 
-        <% } else { %>
-            <p>
-                <a href="/login">Login</a>
-                to see this page.
-            </p>
-            <%}%>
+        <% if (typeof errors !='undefined' ) { %>
+            <ul>
+                <% errors.forEach(err=> { %>
+                    <li>
+                        <%= err.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
 
-                <% if (typeof errors !='undefined' ) { %>
-                    <ul>
-                        <% errors.forEach(err=> { %>
-                            <li>
-                                <%= err.msg %>
-                            </li>
-                            <% }) %>
-                    </ul>
-                    <% } %>
+                <% } else { %>
+                    <p>
+                        <a href="/login">Login</a>
+                        to see this page.
+                    </p>
+                    <%}%>
 
 </body>
 

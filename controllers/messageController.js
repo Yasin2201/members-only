@@ -54,7 +54,7 @@ exports.delete_message_get = function (req, res) {
         .exec(function (err, found_message) {
             if (err) { return next(err) }
             else {
-                res.render('delete-message', { title: 'Are you sure you want to delete this message? :', user: req.user, message: found_message })
+                res.render('delete-message', { title: 'Delete Message', user: req.user, message: found_message })
             }
         })
 }
