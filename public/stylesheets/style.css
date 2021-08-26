@@ -1,7 +1,9 @@
 html, body {
+  height: 100%;
   padding: 0;
   margin: 0;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: rgb(123, 140, 158);
 }
 
 a {
@@ -25,4 +27,46 @@ nav {
   justify-content: space-between;
   background-color: rgb(69, 79, 89);
   border-bottom: solid 1px black;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+input {
+  margin: 10px;
+  width: 250px;
+  height: 30px;
+  outline: none;
+  background-color: rgb(69, 79, 89);
+  color: rgb(255, 255, 255);
+  border: solid 2px black;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+input::placeholder{
+  color: rgb(255, 255, 255);
+}
+
+button {
+  width: 100px;
+  height: 25px;
+
+  border-radius: 15px;
+  border: solid 2px rgb(76, 99, 143);
+
+  background-color: rgb(92, 121, 175);
+  color: rgb(255, 255, 255);
+
+  outline: none;
+}
+
+button:hover {
+  transition: 0.2s;
+  background-color: rgb(255, 255, 255);
+  color: rgb(92, 121, 175);
 }

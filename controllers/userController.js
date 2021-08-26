@@ -38,7 +38,7 @@ exports.sign_up_post = [
             });
 
             if (!errors.isEmpty()) {
-                res.render('sign-up', { title: 'Sign Up', user: user, errors: errors.array() });
+                res.render('sign-up', { title: 'Sign Up', errors: errors.array(), user: undefined });
                 return
             } else {
                 // first check if username already exists
@@ -48,7 +48,7 @@ exports.sign_up_post = [
 
                         // if username exists re-render sign-up with error
                         if (found_username) {
-                            res.render('sign-up', { title: 'Sign Up', user: user, errors: [{ value: '', msg: 'Username already exists', param: 'username', location: 'body' }] });
+                            res.render('sign-up', { title: 'Sign Up', user: undefined, errors: [{ value: '', msg: 'Username already exists', param: 'username', location: 'body' }] });
                         } else {
                             user.save(function (err) {
                                 if (err) { return next(err) }
@@ -111,7 +111,7 @@ exports.member_join_post = [
 
 //GET admin-access page
 exports.admin_access_get = function (req, res) {
-    res.render('admin-access', { title: 'Admin Access:', user: req.user });
+    res.render('admin-access', { title: 'Admin Access', user: req.user });
 }
 
 //validate password and update user isAdmin === true

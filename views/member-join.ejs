@@ -25,29 +25,32 @@
             </div>
         </nav>
 
-        <p>Enter the SECRET members password to become a club member!:</p>
-
         <form action="" method="POST">
+            <h2>
+                <%= title %>
+            </h2>
+            <p>Enter the SECRET members password to become a club member:</p>
+
             <input type="text" name="memberPassword" placeholder="Password">
             <button>Join</button>
         </form>
 
-        <% } else { %>
-            <p>
-                <a href="/login">Login</a>
-                to see this page.
-            </p>
-            <%}%>
+        <% if (typeof errors !='undefined' ) { %>
+            <ul>
+                <% errors.forEach(err=> { %>
+                    <li>
+                        <%= err.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
 
-                <% if (typeof errors !='undefined' ) { %>
-                    <ul>
-                        <% errors.forEach(err=> { %>
-                            <li>
-                                <%= err.msg %>
-                            </li>
-                            <% }) %>
-                    </ul>
-                    <% } %>
+                <% } else { %>
+                    <p>
+                        <a href="/login">Login</a>
+                        to see this page.
+                    </p>
+                    <%}%>
 </body>
 
 </html>

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <% if (!user) {%>
+    <% if (!user || user===undefined) {%>
 
         <nav>
             <h1>
@@ -31,38 +31,40 @@
 
             <label for="passwordConfirmation"></label>
             <input type="text" name="passwordConfirmation" placeholder="password confirmation">
-            <button>Submit</button>
+            <button>Sign Up</button>
         </form>
-        <% } else { %>
-            <nav>
-                <h1>
-                    Members Only
-                </h1>
 
-                <div>
-                    <a href="/">Home</a>
-                    <a href="/new-message">Create New Message</a>
-                    <a href="/member-join">Become a Member</a>
-                    <a href="/admin-access">Become a Admin</a>
-                    <a href="/log-out">Log Out</a>
-                </div>
-            </nav>
+        <% if (typeof errors !='undefined' ) { %>
+            <ul>
+                <% errors.forEach(err=> { %>
+                    <li>
+                        <%= err.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
 
-            <h2>
-                you're already signed up.
-            </h2>
+                <% } else { %>
+                    <nav>
+                        <h1>
+                            Members Only
+                        </h1>
 
-            <%}%>
+                        <div>
+                            <a href="/">Home</a>
+                            <a href="/new-message">Create New Message</a>
+                            <a href="/member-join">Become a Member</a>
+                            <a href="/admin-access">Become a Admin</a>
+                            <a href="/log-out">Log Out</a>
+                        </div>
+                    </nav>
 
-                <% if (typeof errors !='undefined' ) { %>
-                    <ul>
-                        <% errors.forEach(err=> { %>
-                            <li>
-                                <%= err.msg %>
-                            </li>
-                            <% }) %>
-                    </ul>
-                    <% } %>
+                    <h2>
+                        you're already signed up.
+                    </h2>
+
+                    <%}%>
+
 </body>
 
 </html>
