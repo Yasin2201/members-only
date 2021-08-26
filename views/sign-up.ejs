@@ -8,13 +8,19 @@
     <title>
         <%= title %>
     </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
     <% if (!user) {%>
-        <h1>
-            <%= title %>
-        </h1>
+
+        <nav>
+            <h1>
+                <%= title %>
+            </h1>
+
+            <a href="/login">Already have an account? Sign In</a>
+        </nav>
 
         <form action="" method="POST">
             <label for="username"></label>
@@ -28,10 +34,24 @@
             <button>Submit</button>
         </form>
         <% } else { %>
-            <a href="/">Back</a>
-            <p>
-                user already signed up.
-            </p>
+            <nav>
+                <h1>
+                    Members Only
+                </h1>
+
+                <div>
+                    <a href="/">Home</a>
+                    <a href="/new-message">Create New Message</a>
+                    <a href="/member-join">Become a Member</a>
+                    <a href="/admin-access">Become a Admin</a>
+                    <a href="/log-out">Log Out</a>
+                </div>
+            </nav>
+
+            <h2>
+                you're already signed up.
+            </h2>
+
             <%}%>
 
                 <% if (typeof errors !='undefined' ) { %>
