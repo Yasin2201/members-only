@@ -34,23 +34,24 @@
             <button>Post</button>
         </form>
 
-        <% } else { %>
-            <p>
-                <a href="/login">Login</a>
-                to see this page.
-            </p>
+        <% if (typeof errors !='undefined' ) { %>
+            <ul>
+                <% errors.forEach(err=> { %>
+                    <li>
+                        <%= err.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
 
-            <%}%>
+                <% } else { %>
+                    <p>
+                        <a href="/login">Login</a>
+                        to see this page.
+                    </p>
 
-                <% if (typeof errors !='undefined' ) { %>
-                    <ul>
-                        <% errors.forEach(err=> { %>
-                            <li>
-                                <%= err.msg %>
-                            </li>
-                            <% }) %>
-                    </ul>
-                    <% } %>
+                    <%}%>
+
 </body>
 
 </html>
